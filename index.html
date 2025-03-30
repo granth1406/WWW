@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Stakes</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #000;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 30px;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #e4002b;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #e4002b;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #c1001f;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: #e4002b;
+            bottom: -15px;
+            left: 25%;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: #f8f8f8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            color: #e4002b;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* Horse Racing Section */
+        .horse-racing {
+            padding: 100px 0;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .race-animation {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .track {
+            width: 100%;
+            height: 150px;
+            background-color: #8b5a2b;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .horse {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background-image: url('/api/placeholder/60/40');
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: left 5s ease;
+        }
+
+        .horse-1 {
+            top: 20px;
+            left: 0;
+        }
+
+        .horse-2 {
+            top: 60px;
+            left: 0;
+        }
+
+        .horse-3 {
+            top: 100px;
+            left: 0;
+        }
+
+        .race-btn {
+            margin-top: 20px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background-color: #f8f8f8;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            display: none;
+        }
+
+        .testimonial.active {
+            display: block;
+        }
+
+        .testimonial-text {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: #e4002b;
+        }
+
+        .slider-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .slider-btn {
+            background-color: #e4002b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* Call-to-Action Section */
+        .cta {
+            padding: 100px 0;
+            background-image: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: #e4002b;
+            bottom: -10px;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #e4002b;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: #fff;
+            margin-right: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #e4002b;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .header-container {
+                position: relative;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #000;
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="#">EMPIRE STAKES</a>
+            </div>
+            <div class="mobile-menu-btn">☰</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>EMPIRE STAKES</h1>
+            <p>Experience the thrill of horse racing with premium access to the world's most prestigious racing events</p>
+            <a href="#services" class="btn">Discover Our Services</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>The Premier Horse Racing Experience</h3>
+                    <p>Founded by industry experts with decades of experience, Empire Stakes brings you closer to the action than ever before. Our passion for the sport drives us to provide unparalleled access to the most exciting racing events across the globe.</p>
+                    <p>Whether you're a seasoned racing enthusiast or new to the world of horse racing, our team is dedicated to enhancing your experience with expert insights, exclusive access, and personalized service.</p>
+                    <p>We pride ourselves on our deep connections within the industry, allowing us to offer our members opportunities that simply aren't available elsewhere.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="Horse racing">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏆</div>
+                    <h3>VIP Event Access</h3>
+                    <p>Gain exclusive access to premium seating, private boxes, and VIP areas at the world's most prestigious horse racing events, including the Kentucky Derby, Royal Ascot, and more.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Expert Analysis</h3>
+                    <p>Benefit from our team of expert analysts who provide detailed insights, race previews, and professional tips to help you make informed decisions and enhance your racing knowledge.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>Insider Connections</h3>
+                    <p>Meet jockeys, trainers, and owners through our exclusive networking events and behind-the-scenes tours that offer a glimpse into the inner workings of the racing world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horse Racing Section -->
+    <section class="horse-racing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience The Thrill</h2>
+            </div>
+            <p>Feel the excitement of the race with our interactive horse racing experience</p>
+            <div class="race-animation">
+                <div class="track">
+                    <div class="horse horse-1"></div>
+                    <div class="horse horse-2"></div>
+                    <div class="horse horse-3"></div>
+                </div>
+            </div>
+            <button class="btn race-btn">Start Race</button>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Members Say</h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <p class="testimonial-text">"Joining Empire Stakes has completely transformed my racing experience. Their VIP access at the Kentucky Derby was second to none, and their analyst team provided insights that helped me make some excellent betting decisions."</p>
+                    <p class="testimonial-author">- James Wilson, Member since 2022</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"The behind-the-scenes stable tours arranged by Empire Stakes gave me a new appreciation for the sport. Meeting trainers and jockeys in person was an unforgettable experience that I couldn't have arranged on my own."</p>
+                    <p class="testimonial-author">- Sarah Thompson, Member since 2023</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"As someone new to horse racing, I was initially overwhelmed, but the team at Empire Stakes guided me through every step. Their expert analysis and educational resources helped me quickly develop a deeper understanding of the sport."</p>
+                    <p class="testimonial-author">- Michael Rodriguez, Member since 2024</p>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn">Previous</button>
+                    <button class="slider-btn next-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call-to-Action Section -->
+    <section id="contact" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Empire Stakes Today</h2>
+                <p>Become a member to access exclusive racing events, expert analysis, and VIP experiences that will elevate your horse racing journey.</p>
+                <a href="#" class="btn">Become A Member</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Empire Stakes</h3>
+                    <p>Your premier destination for exclusive horse racing experiences, expert analysis, and VIP event access.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Twitter">t</a>
+                        <a href="#" aria-label="Instagram">i</a>
+                        <a href="#" aria-label="LinkedIn">l</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>123 Racing Avenue, Lexington, KY 40508</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Email: info@empirestakes.com</li>
+                        <li>Hours: Mon-Fri, 9am-5pm EST</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Empire Stakes. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+        
+        // Testimonial Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentSlide = 0;
+        
+        function showSlide(n) {
+            testimonials.forEach(testimonial => {
+                testimonial.classList.remove('active');
+            });
+            
+            testimonials[n].classList.add('active');
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            currentSlide++;
+            if (currentSlide >= testimonials.length) {
+                currentSlide = 0;
+            }
+            showSlide(currentSlide);
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            currentSlide--;
+            if (currentSlide < 0) {
+                currentSlide = testimonials.length - 1;
+            }
+            showSlide(currentSlide);
+        });
+        
+        // Auto-slide testimonials
+        setInterval(() => {
+            currentSlide++;
+            if (currentSlide >= testimonials.length) {
+                currentSlide = 0;
+            }
+            showSlide(currentSlide);
+        }, 5000);
+        
+        // Horse Race Animation
+        const raceBtn = document.querySelector('.race-btn');
+        const horses = document.querySelectorAll('.horse');
+        
+        raceBtn.addEventListener('click', () => {
+            // Reset horses
+            horses.forEach(horse => {
+                horse.style.left = '0';
+            });
+            
+            // Small delay to ensure reset is visible
+            setTimeout(() => {
+                // Start the race with random finish positions
+                horses.forEach(horse => {
+                    const finishPosition = 70 + Math.random() * 25;
+                    horse.style.left = `${finishPosition}%`;
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
